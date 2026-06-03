@@ -1,0 +1,3 @@
+[INFO] 2026-06-02 15:52:16,631 /home/satya/Desktop/pythonapp/venv/lib/python3.8/site-packages/django/utils/autoreload.py Watching for file changes with StatReloader
+[INFO] 2026-06-02 15:54:03,680 /home/satya/Desktop/pythonapp/venv/lib/python3.8/site-packages/django/utils/autoreload.py /home/satya/Desktop/pythonapp/core/settings.py changed, reloading.
+[INFO] 2026-06-02 15:54:32,207 /home/satya/Desktop/pythonapp/api/views.py Employee API called
