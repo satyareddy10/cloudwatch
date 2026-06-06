@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-n5p5+36%s53_^%5a1+r*j6ogx)=zo2yj9o6*6bhx*rizfa$^l1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -123,7 +123,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+import watchtower
 LOG_DIR = os.path.join(BASE_DIR, "logs")
 os.makedirs(LOG_DIR, exist_ok=True)
 
@@ -155,11 +155,17 @@ LOGGING = {
             "formatter": "verbose",
             "level": "ERROR",
         },
+        "cloudwatch": {
+            "class": "core.log_handlers.SafeCloudWatchLogHandler",
+            "log_group_name": "hrms-api-logs",
+            "log_stream_name": "django-api",
+            "formatter": "verbose",
+        },
     },
 
     "loggers": {
         "api": {
-            "handlers": ["console", "file_info", "file_error"],
+            "handlers": ["console", "file_info", "file_error","cloudwatch"],
             "level": "INFO",
             "propagate": False,
         }
