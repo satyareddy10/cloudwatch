@@ -155,17 +155,12 @@ LOGGING = {
             "formatter": "verbose",
             "level": "ERROR",
         },
-        "cloudwatch": {
-            "class": "core.log_handlers.SafeCloudWatchLogHandler",
-            "log_group_name": "hrms-api-logs",
-            "log_stream_name": "django-api",
-            "formatter": "verbose",
-        },
+       
     },
 
     "loggers": {
         "api": {
-            "handlers": ["console", "file_info", "file_error","cloudwatch"],
+            "handlers": ["console", "file_info", "file_error"],
             "level": "INFO",
             "propagate": False,
         }
