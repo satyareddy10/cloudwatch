@@ -29,6 +29,4 @@ jobs:
 
             python manage.py migrate --noinput
 
-            pkill -f "manage.py runserver" || true
-
-            setsid python manage.py runserver 0.0.0.0:8080 > django.log 2>&1 < /dev/null &
+            sudo systemctl restart django

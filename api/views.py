@@ -22,7 +22,7 @@ class ItemListCreateAPIView(APIView):
         serializer = ItemSerializer(items, many=True)
         return Response({
             "success": True,
-            "message": "Items retrieved successfull",
+            "message": "Items retrieved successfully",
             "data": serializer.data
         }, status=status.HTTP_200_OK)
 
