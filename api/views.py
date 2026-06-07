@@ -20,7 +20,11 @@ class ItemListCreateAPIView(APIView):
 
         items = Item.objects.all()
         serializer = ItemSerializer(items, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response({
+            "success": True,
+            "message": "Items retrieved successfully",
+            "data": serializer.data
+        }, status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
         serializer = ItemSerializer(data=request.data)
