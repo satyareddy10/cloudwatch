@@ -31,4 +31,8 @@ jobs:
 
             pkill -f "manage.py runserver" || true
 
-            nohup python manage.py runserver 0.0.0.0:8080 > django.log 2>&1 &
+            nohup python manage.py runserver 0.0.0.0:8080 > django.log 2>&1 < /dev/null &
+
+            sleep 5
+
+            ps -ef | grep runserver
