@@ -166,3 +166,9 @@ LOGGING = {
         }
     }
 }
+
+# AWS S3 Settings
+AWS_ACCESS_KEY_ID = ""
+AWS_SECRET_ACCESS_KEY = ""
+AWS_S3_REGION_NAME = "ap-south-1"
+AWS_STORAGE_BUCKET_NAME = "kiran-image-bucket"

@@ -4,6 +4,7 @@ from rest_framework import status
 from django.http import Http404
 from .models import Item
 from .serializers import ItemSerializer
+from .services import S3Service
 
 import logging
 logger = logging.getLogger("api")
@@ -27,7 +28,13 @@ class ItemListCreateAPIView(APIView):
         }, status=status.HTTP_200_OK)
 
     def post(self, request, format=None):
-        serializer = ItemSerializer(data=request.data)
+        data = request.data.copy() if hasattr(request.data, 'copy') else dict(request.data)
+        image_file = request.FILES.get('image') or request.data.get('image')
+        if image_file and not isinstance(image_file, str):
+            image_url = S3Service.upload_file(image_file)
+            data['image'] = image_url
+
+        serializer = ItemSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -50,7 +57,13 @@ class ItemDetailAPIView(APIView):
 
     def put(self, request, pk, format=None):
         item = self.get_object(pk)
-        serializer = ItemSerializer(item, data=request.data)
+        data = request.data.copy() if hasattr(request.data, 'copy') else dict(request.data)
+        image_file = request.FILES.get('image') or request.data.get('image')
+        if image_file and not isinstance(image_file, str):
+            image_url = S3Service.upload_file(image_file)
+            data['image'] = image_url
+
+        serializer = ItemSerializer(item, data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
@@ -58,7 +71,13 @@ class ItemDetailAPIView(APIView):
 
     def patch(self, request, pk, format=None):
         item = self.get_object(pk)
-        serializer = ItemSerializer(item, data=request.data, partial=True)
+        data = request.data.copy() if hasattr(request.data, 'copy') else dict(request.data)
+        image_file = request.FILES.get('image') or request.data.get('image')
+        if image_file and not isinstance(image_file, str):
+            image_url = S3Service.upload_file(image_file)
+            data['image'] = image_url
+
+        serializer = ItemSerializer(item, data=data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
